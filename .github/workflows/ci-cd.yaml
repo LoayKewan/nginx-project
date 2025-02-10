@@ -9,7 +9,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -53,6 +52,11 @@ jobs:
           echo "${{ secrets.CLIENT_CRT }}" > $HOME/.minikube/profiles/minikube/client.crt
           echo "${{ secrets.CLIENT_KEY }}" > $HOME/.minikube/profiles/minikube/client.key
           echo "${{ secrets.CA_CRT }}" > $HOME/.minikube/profiles/minikube/ca.crt
+
+      - name: List files in .minikube directory
+        run: |
+          echo "Contents of $HOME/.minikube/profiles/minikube:"
+          ls -l $HOME/.minikube/profiles/minikube/
 
       - name: Update Deployment Image
         run: |
