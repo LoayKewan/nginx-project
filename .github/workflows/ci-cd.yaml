@@ -55,6 +55,7 @@ jobs:
           echo "${{ secrets.CA_CRT }}" > $HOME/.minikube/profiles/minikube/ca.crt
           
 
+
       - name: Update Deployment Image
         run: |
           kubectl set image deployment/nginx-deployment nginx=${{ secrets.DOCKER_USERNAME }}/${{ needs.build.outputs.image }}
