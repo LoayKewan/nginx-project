@@ -45,10 +45,15 @@ jobs:
       - name: Create .kube directory
         run: |
           mkdir -p $HOME/.kube
+          mkdir -p /$HOME/.minikube/profiles/minikube/
 
       - name: Set up KUBECONFIG
         run: |
           echo "${{ secrets.KUBECONFIG }}" > $HOME/.kube/config
+          echo "${{ secrets.CLIENT_CRT }}" > /$HOME/.minikube/profiles/minikube/client.crt
+          echo "${{ secrets.CLIENT_KEY }}" > /$HOME/.minikube/profiles/minikube/client.key
+          echo "${{ secrets.CA_CRT }}" > /$HOME/.minikube/profiles/minikube/ca.crt
+          
 
       - name: Update Deployment Image
         run: |
