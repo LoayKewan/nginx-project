@@ -23,10 +23,13 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build and push Docker image
+        id: docker_build
         run: |
-          docker build -t ${{ github.repository }}:${{ github.sha }} .
-          docker tag ${{ github.repository }}:${{ github.sha }} my_nginx:${{ github.sha }}
-          docker push my_nginx:${{ github.sha }}
+          my_nginx=nginx:${{ github.run_number }}
+          docker build -t $my_nginx .
+          docker tag $my_nginx ${{ secrets.DOCKER_USERNAME }}/$my_nginx
+          docker push ${{ secrets.DOCKER_USERNAME }}/$my_nginx
+          echo "::set-output name=image::$my_nginx"
 
   deploy:
     runs-on: ubuntu-latest
@@ -53,7 +56,7 @@ jobs:
 
       - name: Update Deployment Image
         run: |
-          kubectl set image deployment/nginx-deployment nginx=my_nginx:${{ github.sha }}
+          kubectl set image deployment/nginx-deployment nginx=${{ secrets.DOCKER_USERNAME }}/${{ needs.build.outputs.image }}
 
       - name: Apply Kubernetes configurations
         run: |

@@ -12,4 +12,3 @@ spec:
       port: 80
       targetPort: 80
       nodePort: 30001
-Step 4: Create the CI/CD Pipeline Configuration
