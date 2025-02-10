@@ -41,6 +41,7 @@ jobs:
         with:
           version: 'latest'
 
+
       - name: Create .kube directory
         run: |
           mkdir -p $HOME/.kube
