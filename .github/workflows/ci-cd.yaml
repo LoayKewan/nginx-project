@@ -41,6 +41,10 @@ jobs:
         with:
           version: 'latest'
 
+      - name: Create .kube directory
+        run: |
+          mkdir -p $HOME/.kube
+
       - name: Set up KUBECONFIG
         run: |
           echo "${{ secrets.KUBECONFIG }}" | base64 --decode > $HOME/.kube/config
