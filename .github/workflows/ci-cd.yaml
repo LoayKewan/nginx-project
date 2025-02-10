@@ -49,15 +49,6 @@ jobs:
         run: |
           echo "${{ secrets.KUBECONFIG }}" > $HOME/.kube/config
 
-      - name: Create Minikube Directory
-        run: |
-          mkdir -p $HOME/.minikube/profiles/minikube
-
-      - name: Create Client Certificate and Key
-        run: |
-          echo "${{ secrets.CLIENT_CERT }}" > $HOME/.minikube/profiles/minikube/client.crt
-          echo "${{ secrets.CLIENT_KEY }}" > $HOME/.minikube/profiles/minikube/client.key
-
       - name: Update Deployment Image
         run: |
           kubectl set image deployment/nginx-deployment nginx=${{ secrets.DOCKER_USERNAME }}/${{ needs.build.outputs.image }}
