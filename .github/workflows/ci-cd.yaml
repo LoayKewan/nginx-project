@@ -59,7 +59,7 @@ jobs:
         run: |
           echo "Contents of $HOME/.minikube/profiles/minikube:"
           ls -l $HOME/.minikube/profiles/minikube/
-          ls -l $HOME/.minikube/.minikube/
+          ls -l $HOME/.minikube/
           
 
       - name: Update Deployment Image
